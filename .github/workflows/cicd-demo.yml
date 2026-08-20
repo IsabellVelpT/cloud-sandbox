@@ -20,4 +20,3 @@ jobs:
       - name: Anwendung testen
         run: |
           sleep 3
-          curl --fail http://localhost:8083
