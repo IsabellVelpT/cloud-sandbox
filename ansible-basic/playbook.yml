@@ -1,0 +1,10 @@
+---
+- name: Erstes Ansible Playbook
+  hosts: local
+  connection: local
+  tasks:
+    - name: Testdatei erstellen
+      ansible.builtin.copy:
+        content: "Diese Datei wurde automatisch mit Ansible erstellt.\n"
+        dest: /tmp/ansible-test.txt
+        mode: "0644"

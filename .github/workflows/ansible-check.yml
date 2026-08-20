@@ -1,0 +1,25 @@
+name: Ansible Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ansible-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ansible installieren
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ansible-core
+
+      - name: Playbook Syntax prüfen
+        working-directory: ansible-basic
+        run: |
+          ansible-playbook -i inventory.ini playbook.yml --syntax-check
+          ansible-playbook -i inventory.ini webserver.yml --syntax-check

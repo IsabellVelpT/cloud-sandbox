@@ -1,0 +1,24 @@
+---
+- name: Webserver automatisch konfigurieren
+  hosts: local
+  become: true
+
+  tasks:
+    - name: Nginx installieren
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    - name: Eigene Webseite erstellen
+      ansible.builtin.copy:
+        content: |
+          <h1>Cloud Sandbox</h1>
+          <p>Dieser Webserver wurde automatisch mit Ansible konfiguriert.</p>
+        dest: /var/www/html/index.html
+        mode: "0644"
+
+    - name: Nginx starten
+      ansible.builtin.service:
+        name: nginx
+        state: started
