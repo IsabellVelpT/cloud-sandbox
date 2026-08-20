@@ -1,0 +1,23 @@
+name: CI-CD Demo
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Docker Image bauen
+        run: docker build -t cloud-cicd-demo ./cicd-demo
+
+      - name: Container starten
+        run: docker run -d --name cicd-demo -p 8083:80 cloud-cicd-demo
+
+      - name: Anwendung testen
+        run: |
+          sleep 3
+          curl --fail http://localhost:8083

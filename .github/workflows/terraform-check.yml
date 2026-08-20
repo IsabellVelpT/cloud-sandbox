@@ -1,0 +1,27 @@
+name: Terraform Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  terraform-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Format prüfen
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Basic initialisieren
+        working-directory: terraform-basic
+        run: terraform init -backend=false
+
+      - name: Terraform Basic validieren
+        working-directory: terraform-basic
+        run: terraform validate
