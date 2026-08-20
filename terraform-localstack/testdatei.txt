@@ -1,0 +1,1 @@
+Diese Datei liegt in unserem simulierten AWS S3.
